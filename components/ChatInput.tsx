@@ -1,13 +1,15 @@
 import { useState } from "react";
 import {TextInput, Alert, StyleSheet, View, TouchableOpacity, Text} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if(message.length < 4) {
             return Alert.alert("Message must be at least 4 character long", "Please try again");
         }
 
+        const username = await AsyncStorage.getItem("@username");
         setMessage("")
     };
 

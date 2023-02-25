@@ -1,14 +1,28 @@
 import {SafeAreaView, StyleSheet, Alert, TextInput, View, TouchableOpacity, Text} from "react-native";
 import {useState} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationProp} from "@react-navigation/native";
 
 const LoginScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
+    const usernameAlreadyExists = async () => {
+        const username = await AsyncStorage.getItem("@username");
+        if(username) {
+            navigation.navigate("Chat", {username});
+        }
+    }
+
+    usernameAlreadyExists();
+
     const [username, setUsername] = useState("");
 
-    const handleLogin = (): void => {
+    const handleLogin = async () => {
         if(username.length < 4) {
             return Alert.alert("Username must be at least 3 characters long", "Please try again");
         }
+
+
+
+        await AsyncStorage.setItem("@username", username);
         navigation.navigate("Chat", {username});
     }
 
