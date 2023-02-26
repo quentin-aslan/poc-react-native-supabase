@@ -1,17 +1,22 @@
 import { useState } from "react";
 import {TextInput, Alert, StyleSheet, View, TouchableOpacity, Text} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import supabase from "../lib/initSupabase";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
+
     const sendMessage = async () => {
-        if(message.length < 4) {
+        if (message.length < 4) {
             return Alert.alert("Message must be at least 4 character long", "Please try again");
         }
 
         const username = await AsyncStorage.getItem("@username");
-        setMessage("")
-    };
+        const { error } = await supabase.from('messages').insert({content: message});
+        if(error) return Alert.alert("Error", "Something went wrong");
+
+        setMessage("");
+    }
 
     return (
         <View style={styles.inputContainer}>

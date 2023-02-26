@@ -3,15 +3,15 @@ import {StyleSheet, View, Text} from "react-native";
 
 type Props = {
     username: string,
-    message: string;
+    content: string;
 };
 
 
-const Message = ({username, message}: Props) => {
+const Message = ({username, content}: Props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.username}>{username}</Text>
-            <Text style={styles.message}>{message}</Text>
+            <Text style={styles.message}>{content}</Text>
         </View>
     );
 }
