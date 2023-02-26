@@ -1,19 +1,26 @@
 import {FlatList, SafeAreaView, StyleSheet} from "react-native";
-import { messagesMock } from "../mock/mocks";
+import {useState} from "react";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
+import supabase from "../lib/initSupabase";
 
 const ChatScreen = () => {
-    const getMessages = () => {
-        // TODO: Fetch messages from API
-        return messagesMock;
+    const [messages, setMessages] = useState([]);
+
+    const getMessages = async (): Promise<any> => {
+        try {
+            const { data, error } =  await supabase.from("messages").select("*");
+            setMessages(data)
+        } catch (e) {
+
+        }
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <ChatInput />
             <FlatList
-                data={getMessages()}
+                data={messages}
                 renderItem={({item}) => Message(item)}
             />
         </SafeAreaView>
