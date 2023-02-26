@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "generate-supabase-type": "npx supabase gen types typescript --project-id \"mgaqlcjgrkrxpgsxevoo\" --schema public > types/supabase.ts"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.17.11",
@@ -27,6 +28,7 @@
     "@types/jest": "^29.4.0",
     "@types/react": "^18.0.28",
     "@types/react-test-renderer": "^18.0.0",
+    "supabase": "^1.38.7",
     "typescript": "^4.9.5"
   },
   "private": true
