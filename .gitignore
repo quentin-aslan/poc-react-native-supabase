@@ -1,3 +1,7 @@
+# Hide API KEY
+lib/initSupabase.tsx
+
+
 node_modules/
 .expo/
 dist/
