@@ -5,6 +5,7 @@ import { Message as MessageType} from "../types/Message";
 import ChatInput from "./ChatInput";
 import supabase from "../lib/initSupabase";
 import { Session } from '@supabase/supabase-js'
+import Toast from 'react-native-toast-message';
 
 const ChatScreen = ({session}: {session: Session}) => {
     // This function is called once the component is mounted
@@ -17,6 +18,11 @@ const ChatScreen = ({session}: {session: Session}) => {
         const { data, error } = await supabase.from('messages').select();
         if(error) return Alert.alert("Error", "Something went wrong");
         setMessages(data);
+
+        Toast.show({
+            type: 'success',
+            text1: 'All messages fetched',
+        });
     }
 
     const listenForMessages = async () => {

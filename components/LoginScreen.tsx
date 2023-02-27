@@ -2,6 +2,7 @@ import {SafeAreaView, StyleSheet, Alert, TextInput, View, TouchableOpacity, Text
 import {useEffect, useState} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import supabase from "../lib/initSupabase";
+import Toast from "react-native-toast-message";
 
 const LoginScreen = () => {
     const [loading, setLoading] = useState(false);
@@ -14,8 +15,19 @@ const LoginScreen = () => {
             email: email,
             password: password,
         })
-        if (error) Alert.alert(error.message)
-        else storeCredentials()
+        if (error) {
+            Toast.show({
+                type: 'error',
+                text1: error.message
+            });
+        }
+        else {
+            storeCredentials()
+            Toast.show({
+                type: 'success',
+                text1: `Welcome back ${email}`
+            });
+        }
 
         setLoading(false)
 
@@ -27,8 +39,19 @@ const LoginScreen = () => {
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
-        else storeCredentials()
+        if (error) {
+            Toast.show({
+                type: 'error',
+                text1: error.message
+            });
+        }
+        else {
+            storeCredentials()
+            Toast.show({
+                type: 'success',
+                text1: `Welcome ${email}`
+            });
+        }
         setLoading(false)
     }
     const isValidEmail = (email: string) => {
