@@ -1,11 +1,17 @@
-import {Alert, FlatList, SafeAreaView, StyleSheet} from "react-native";
+import {Alert, FlatList, SafeAreaView} from "react-native";
 import React, {useEffect, useState} from "react";
 import Message from "./Message";
 import { Message as MessageType} from "../types/Message";
 import ChatInput from "./ChatInput";
 import supabase from "../lib/initSupabase";
+import { Session } from '@supabase/supabase-js'
 
-const ChatScreen = () => {
+const ChatScreen = ({session}: {session: Session}) => {
+    // This function is called once the component is mounted
+    useEffect(() => {
+        fetchMessages().then();
+        listenForMessages().then();
+    }, [])
 
     const fetchMessages = async () => {
         const { data, error } = await supabase.from('messages').select();
@@ -30,29 +36,16 @@ const ChatScreen = () => {
             .subscribe()
     }
 
-    // This function is called once the component is mounted
-    useEffect(() => {
-        fetchMessages().then();
-        listenForMessages().then();
-    }, [])
-
     const [messages, setMessages] = useState<MessageType[]>([]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             <ChatInput />
             <FlatList
                 data={messages}
-                renderItem={({item}) => Message({username: 'Username', content: item.content})}
+                renderItem={({item}) => Message({username: session.user.email ?? 'Username', content: item.content})}
             />
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
-
 export default ChatScreen;
