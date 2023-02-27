@@ -10,7 +10,7 @@ type Props = {
 const Message = ({username, content}: Props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.username}>{username}</Text>
+            <Text style={styles.username}>{username} : </Text>
             <Text style={styles.message}>{content}</Text>
         </View>
     );
@@ -19,8 +19,7 @@ const Message = ({username, content}: Props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: "column",
         justifyContent: "flex-start",
         padding: 10,
         margin: 10,
