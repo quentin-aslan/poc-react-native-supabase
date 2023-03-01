@@ -13,34 +13,43 @@ export interface Database {
         Row: {
           content: string
           created_at: string | null
+          email: string
           id: number
-          user_id: number | null
         }
         Insert: {
           content: string
           created_at?: string | null
+          email: string
           id?: number
-          user_id?: number | null
         }
         Update: {
           content?: string
           created_at?: string | null
+          email?: string
           id?: number
-          user_id?: number | null
         }
       }
-      user: {
+      profiles: {
         Row: {
-          id: number
-          username: string
+          avatar_url: string | null
+          email: string | null
+          id: string
+          updated_at: string | null
+          username: string | null
         }
         Insert: {
-          id?: number
-          username: string
+          avatar_url?: string | null
+          email?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
         }
         Update: {
-          id?: number
-          username?: string
+          avatar_url?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string | null
+          username?: string | null
         }
       }
     }

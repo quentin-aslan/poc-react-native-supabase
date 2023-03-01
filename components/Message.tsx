@@ -1,16 +1,12 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-
-type Props = {
-    username: string,
-    content: string;
-};
+import {Message as MessageType} from "../types/Message";
 
 
-const Message = ({username, content}: Props) => {
+const Message = ({email, content}: MessageType) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.username}>{username} : </Text>
+            <Text style={styles.email}>{email} : </Text>
             <Text style={styles.message}>{content}</Text>
         </View>
     );
@@ -24,7 +20,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 10,
     },
-    username: {
+    email: {
         fontSize: 18,
         fontWeight: "bold",
         marginRight: 10,

@@ -7,6 +7,8 @@ import supabase from "../lib/initSupabase";
 import { Session } from '@supabase/supabase-js'
 
 const ChatScreen = ({session}: {session: Session}) => {
+    const [messages, setMessages] = useState<MessageType[]>([]);
+
     // This function is called once the component is mounted
     useEffect(() => {
         fetchMessages().then();
@@ -14,14 +16,13 @@ const ChatScreen = ({session}: {session: Session}) => {
     }, [])
 
     const fetchMessages = async () => {
-        const { data, error } = await supabase.from('messages').select();
+        const { data, error } = await supabase.from('messages').select(`content, email`);
         if(error) return Alert.alert("Error", "Something went wrong");
         setMessages(data);
     }
 
     const listenForMessages = async () => {
-        supabase
-            .channel('table-db-changes')
+        supabase.channel('table-db-changes')
             .on(
                 'postgres_changes',
                 {
@@ -36,14 +37,13 @@ const ChatScreen = ({session}: {session: Session}) => {
             .subscribe()
     }
 
-    const [messages, setMessages] = useState<MessageType[]>([]);
-
     return (
         <SafeAreaView>
-            <ChatInput />
+            <ChatInput session={session} />
             <FlatList
+                inverted={true}
                 data={messages}
-                renderItem={({item}) => Message({username: session.user.email ?? 'Username', content: item.content})}
+                renderItem={({item}) => Message(item)}
             />
         </SafeAreaView>
     );
