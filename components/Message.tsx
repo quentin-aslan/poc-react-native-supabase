@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import {Message as MessageType} from "../types/Message";
+import {Message as MessageType} from "../@types/Message";
 
 
 const Message = ({email, content, isCurrentUser}: MessageType & { isCurrentUser: boolean }) => {

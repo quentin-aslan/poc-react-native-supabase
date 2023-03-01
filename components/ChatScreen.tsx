@@ -1,7 +1,7 @@
 import {Alert, FlatList, SafeAreaView, StyleSheet} from "react-native";
 import React, {useEffect, useState, useRef} from "react";
 import Message from "./Message";
-import { Message as MessageType} from "../types/Message";
+import { Message as MessageType} from "../@types/Message";
 import ChatInput from "./ChatInput";
 import supabase from "../lib/initSupabase";
 import { Session } from '@supabase/supabase-js'
