@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, Alert, TextInput, View, TouchableOpacity, Text} from "react-native";
+import {SafeAreaView, StyleSheet, Alert, TextInput, TouchableOpacity, Text} from "react-native";
 import {useEffect, useState} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import supabase from "../lib/initSupabase";
@@ -70,7 +70,6 @@ const LoginScreen = () => {
         if(method === "signUp") signUp();
         else signIn()
     }
-
     const storeCredentials = async () => {
         await AsyncStorage.setItem("credentials", JSON.stringify({email, password}));
     }
@@ -89,18 +88,26 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.inputContainer}>
-            <TextInput style={styles.input} placeholder={"your@email.com"} value={email} onChangeText={setEmail} autoCapitalize={'none'}  />
-            <TextInput secureTextEntry={true} style={styles.input} placeholder={"Password"}  value={password} onChangeText={setPassword} />
-            <View style={{flexDirection: "row", justifyContent: "space-between", width: "80%"}}>
-                <TouchableOpacity disabled={loading} style={(loading) ? styles.disabledButton : styles.button} onPress={() => handleLogin('signIn')}>
-                    <Text style={styles.buttonTextStyle}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity disabled={loading} style={(loading) ? styles.disabledButton : styles.button} onPress={() => handleLogin('signUp')}>
-                    <Text style={styles.buttonTextStyle}>Sign up</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        <Text style={styles.title}>Login</Text>
+        <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+        />
+        <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={setPassword}
+        />
+        <TouchableOpacity style={styles.button} onPress={() => handleLogin('signIn')} disabled={loading}>
+            <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handleLogin('signUp')} disabled={loading}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -108,40 +115,43 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: '80%',
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f6f8fa',
     },
-    inputContainer: {
-        flex: 1,
-        alignItems: "center",
+    title: {
+        fontSize: 24,
+        marginBottom: 32,
+        color: '#24292e',
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     input: {
-        height: 40,
-        width: "80%",
-        margin: 12,
-        fontSize: 20,
-        textAlign: "center"
+        borderWidth: 1,
+        borderColor: '#d1d5da',
+        borderRadius: 4,
+        padding: 8,
+        marginVertical: 8,
+        width: '80%',
+        backgroundColor: '#fff',
+        color: '#24292e',
+        fontSize: 16,
+        textAlign: 'center',
     },
     button: {
-        width: "40%",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#2196F3",
+        backgroundColor: '#1DB954',
+        borderRadius: 4,
+        padding: 12,
+        marginVertical: 16,
+        width: '80%',
     },
-    disabledButton: {
-        width: "40%",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#82828e",
-    },
-    buttonTextStyle: {
+    buttonText: {
         color: '#fff',
-        fontSize: 22
-    }
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
 });
+
 
 export default LoginScreen;

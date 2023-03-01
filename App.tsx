@@ -25,7 +25,7 @@ export default function App() {
         })
     }, [])
   return (
-      <View>
+      <View style={{flex:1}}>
           {session && session.user ? <ChatScreen session={session} /> : <LoginScreen />}
           <Toast />
       </View>
