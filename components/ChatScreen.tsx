@@ -1,5 +1,5 @@
-import {Alert, FlatList, SafeAreaView} from "react-native";
-import React, {useEffect, useState} from "react";
+import {Alert, FlatList, SafeAreaView, StyleSheet} from "react-native";
+import React, {useEffect, useState, useRef} from "react";
 import Message from "./Message";
 import { Message as MessageType} from "../types/Message";
 import ChatInput from "./ChatInput";
@@ -8,6 +8,7 @@ import { Session } from '@supabase/supabase-js'
 
 const ChatScreen = ({session}: {session: Session}) => {
     const [messages, setMessages] = useState<MessageType[]>([]);
+    const flatListRef = useRef<FlatList<MessageType>>(null);
 
     // This function is called once the component is mounted
     useEffect(() => {
@@ -37,15 +38,31 @@ const ChatScreen = ({session}: {session: Session}) => {
             .subscribe()
     }
 
+    const scrollToBottom = () => {
+        if(messages.length > 0) flatListRef.current?.scrollToEnd({ animated: true });
+    };
+
+
     return (
-        <SafeAreaView>
-            <ChatInput session={session} />
+        <SafeAreaView style={style.container}>
             <FlatList
-                inverted={true}
+                ref={flatListRef}
+                onContentSizeChange={scrollToBottom}
+                style={{ flex: 1 }}
                 data={messages}
-                renderItem={({item}) => Message(item)}
+                renderItem={({item}) => Message({email: item.email, content: item.content, isCurrentUser: item.email === session.user.email})}
             />
+            <ChatInput session={session} />
         </SafeAreaView>
     );
 }
+
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#F5FCFF",
+        padding: 16,
+    }
+})
+
 export default ChatScreen;

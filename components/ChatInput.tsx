@@ -17,40 +17,46 @@ const ChatInput = ({session}: {session: Session}) => {
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                style={styles.input}
-                placeholder={"Type a message"}
-                value={message}
-                onChangeText={setMessage}
-                onSubmitEditing={sendMessage}
-            />
-            <TouchableOpacity style={styles.button} onPress={sendMessage}>
-                <Text style={{color: '#fff'}}>Send</Text>
-            </TouchableOpacity>
-        </View>
-    );
+    <View style={styles.inputContainer}>
+        <TextInput
+            style={styles.textInput}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Type a message"
+            onSubmitEditing={sendMessage}
+        />
+        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+            <Text style={styles.sendButtonText}>Send</Text>
+        </TouchableOpacity>
+    </View>
+    )
 }
 
 const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: "row",
-        margin: 10,
-    },
-    input: {
-        height: 40,
-        width: "80%",
-        padding: 10,
-        fontSize: 18,
-        backgroundColor: "#ccc",
-    },
-    button: {
-        fontSize: 18,
-        backgroundColor: "#2196F3",
-        width: "20%",
         alignItems: "center",
-        justifyContent: "center",
-    }
+        marginBottom: 16,
+        marginRight: 16,
+        marginLeft: 16,
+    },
+    textInput: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: "#CCC",
+        borderRadius: 4,
+        padding: 8,
+        marginRight: 8,
+    },
+    sendButton: {
+        padding: 8,
+        borderRadius: 4,
+        backgroundColor: "#1DB954",
+    },
+    sendButtonText: {
+        color: "#FFF",
+        fontWeight: "bold",
+    },
 })
 
 export default ChatInput;
