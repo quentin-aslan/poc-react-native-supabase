@@ -1,4 +1,4 @@
-import {Alert, FlatList, SafeAreaView, StyleSheet} from "react-native";
+import {Alert, FlatList, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet} from "react-native";
 import React, {useEffect, useState, useRef} from "react";
 import Message from "./Message";
 import { Message as MessageType} from "../@types/Message";
@@ -44,16 +44,21 @@ const ChatScreen = ({session}: {session: Session}) => {
 
 
     return (
-        <SafeAreaView style={style.container}>
-            <FlatList
-                ref={flatListRef}
-                onContentSizeChange={scrollToBottom}
-                style={{ flex: 1 }}
-                data={messages}
-                renderItem={({item}) => Message({email: item.email, content: item.content, isCurrentUser: item.email === session.user.email})}
-            />
-            <ChatInput session={session} />
-        </SafeAreaView>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            onLayout={scrollToBottom}
+            style={style.container}>
+            <SafeAreaView style={style.container} >
+                <FlatList
+                    ref={flatListRef}
+                    onContentSizeChange={scrollToBottom}
+                    style={{ flex: 1 }}
+                    data={messages}
+                    renderItem={({item}) => Message({email: item.email, content: item.content, isCurrentUser: item.email === session.user.email})}
+                />
+                <ChatInput session={session} />
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }
 
