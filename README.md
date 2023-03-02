@@ -1,19 +1,10 @@
 # 🚀 POC - React Native - Supabase
 
-<ul style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
-  <li style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-right: 20px;">
-    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 5px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Native" width="50" height="50"/> 
-    </div>
-    <div style="text-align: center; font-size: 24px">React Native</div>
-  </li>
-  <li style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-right: 20px;">
-    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 5px;">
-      <img src="./assets/supabase-logo-icon.png" alt="React Native" width="50" height="50"/> 
-    </div>
-    <div style="text-align: center; font-size: 24px">Supabase</div>
-  </li>
-</ul>
+<p align="center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Native" width="100" height="100"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="./assets/supabase-logo-icon.png" alt="Supabase" width="100" height="100"/>
+</p>
 
 This is a Proof of Concept (POC) real-time chat application developed using React Native for the frontend and Supabase for the backend. The goal of this project was to learn how to use these technologies to build a chat application that utilizes Supabase to handle data synchronization between users.
 
